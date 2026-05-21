@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>田村 茉希 | Maki Tamura — Portfolio</title>
+<meta name="description" content="田村茉希のポートフォリオサイト。慶應義塾大学 総合政策学部。サービスロボットの社会実装に関心。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Shippori+Mincho:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6f2ea;
+    --bg-soft: #ede7dc;
+    --ink: #1c1c1c;
+    --ink-soft: #4a4a4a;
+    --ink-mute: #8a8479;
+    --line: #d6cebf;
+    --accent: #2c3e50;
+    --copper: #a5694a;
+    --serif-en: "Cormorant Garamond", serif;
+    --serif-jp: "Shippori Mincho", serif;
+    --sans-jp: "Zen Kaku Gothic New", sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans-jp);
+    font-weight: 400;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* グレイン質感 */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+    opacity: 0.04;
+    pointer-events: none;
+    z-index: 1;
+    mix-blend-mode: multiply;
+  }
+
+  /* ナビゲーション */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 1.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(246, 242, 234, 0.85);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s ease;
+  }
+
+  nav.scrolled { border-bottom-color: var(--line); }
+
+  .nav-mark {
+    font-family: var(--serif-en);
+    font-style: italic;
+    font-size: 1.4rem;
+    letter-spacing: 0.02em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: var(--sans-jp);
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    text-decoration: none;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    position: relative;
+    transition: color 0.3s ease;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0;
+    height: 1px;
+    background: var(--copper);
+    transition: width 0.3s ease;
+  }
+
+  .nav-links a:hover { color: var(--ink); }
+  .nav-links a:hover::after { width: 100%; }
+
+  /* セクション共通 */
+  section {
+    position: relative;
+    z-index: 2;
+    padding: 8rem 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: var(--serif-en);
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--copper);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-label::before {
+    content: '';
+    width: 32px;
+    height: 1px;
+    background: var(--copper);
+  }
+
+  .section-title {
+    font-family: var(--serif-jp);
+    font-weight: 500;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    margin-bottom: 3.5rem;
+    letter-spacing: 0.05em;
+    line-height: 1.4;
+  }
+
+  /* ヒーロー */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 6rem;
+    padding-bottom: 4rem;
+  }
+
+  .hero-meta {
+    font-family: var(--serif-en);
+    font-style: italic;
+    color: var(--ink-mute);
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.2s forwards;
+  }
+
+  .hero-name-en {
+    font-family: var(--serif-en);
+    font-weight: 400;
+    font-size: clamp(3.5rem, 9vw, 7.5rem);
+    line-height: 1;
+    letter-spacing: -0.01em;
+    margin-bottom: 1rem;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.4s forwards;
+  }
+
+  .hero-name-en em {
+    font-style: italic;
+    color: var(--copper);
+  }
+
+  .hero-name-jp {
+    font-family: var(--serif-jp);
+    font-weight: 400;
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+    letter-spacing: 0.4em;
+    color: var(--ink-soft);
+    margin-bottom: 3.5rem;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.6s forwards;
+  }
+
+  .hero-tagline {
+    max-width: 620px;
+    font-family: var(--serif-jp);
+    font-size: 1.05rem;
+    line-height: 2.1;
+    color: var(--ink-soft);
+    opacity: 0;
+    animation: fadeUp 1s ease 0.8s forwards;
+  }
+
+  .hero-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 4rem;
+    opacity: 0;
+    animation: fadeUp 1s ease 1s forwards;
+  }
+
+  .hero-loc {
+    font-family: var(--serif-en);
+    font-style: italic;
+    color: var(--ink-mute);
+    font-size: 0.95rem;
+  }
+
+  .scroll-hint {
+    font-family: var(--serif-en);
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--ink-mute);
+    writing-mode: vertical-rl;
+    letter-spacing: 0.1em;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* About */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .about-card {
+    background: var(--bg-soft);
+    padding: 2.5rem;
+    border-left: 2px solid var(--copper);
+  }
+
+  .about-card dl {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.9rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .about-card dt {
+    font-family: var(--serif-en);
+    font-style: italic;
+    color: var(--copper);
+    letter-spacing: 0.05em;
+  }
+
+  .about-card dd {
+    color: var(--ink);
+    font-family: var(--sans-jp);
+  }
+
+  .about-text p {
+    margin-bottom: 1.4rem;
+    font-size: 1rem;
+    line-height: 2;
+    color: var(--ink-soft);
+  }
+
+  .about-text p:first-child {
+    font-family: var(--serif-jp);
+    font-size: 1.15rem;
+    color: var(--ink);
+  }
+
+  .about-text strong {
+    color: var(--ink);
+    font-weight: 500;
+    border-bottom: 1px solid var(--copper);
+    padding-bottom: 1px;
+  }
+
+  /* タイムライン */
+  .timeline {
+    border-left: 1px solid var(--line);
+    padding-left: 2.5rem;
+    margin-left: 0.5rem;
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 3.5rem;
+  }
+
+  .timeline-item:last-child { margin-bottom: 0; }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -2.95rem;
+    top: 0.5rem;
+    width: 9px;
+    height: 9px;
+    background: var(--bg);
+    border: 1.5px solid var(--copper);
+    border-radius: 50%;
+  }
+
+  .timeline-date {
+    font-family: var(--serif-en);
+    font-style: italic;
+    font-size: 0.92rem;
+    color: var(--copper);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+  }
+
+  .timeline-title {
+    font-family: var(--serif-jp);
+    font-weight: 500;
+    font-size: 1.35rem;
+    line-height: 1.5;
+    margin-bottom: 0.3rem;
+  }
+
+  .timeline-sub {
+    font-family: var(--sans-jp);
+    font-size: 0.92rem;
+    color: var(--ink-mute);
+    margin-bottom: 1rem;
+    letter-spacing: 0.03em;
+  }
+
+  .timeline-desc {
+    font-size: 0.95rem;
+    line-height: 2;
+    color: var(--ink-soft);
+    max-width: 680px;
+  }
+
+  /* アクティビティ・グリッド */
+  .activity-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+
+  .activity-card {
+    background: var(--bg-soft);
+    padding: 2rem;
+    position: relative;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  .activity-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px -12px rgba(28, 28, 28, 0.15);
+  }
+
+  .activity-num {
+    font-family: var(--serif-en);
+    font-style: italic;
+    color: var(--copper);
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .activity-title {
+    font-family: var(--serif-jp);
+    font-weight: 500;
+    font-size: 1.15rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+  }
+
+  .activity-date {
+    font-family: var(--serif-en);
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--ink-mute);
+    margin-bottom: 1rem;
+  }
+
+  .activity-desc {
+    font-size: 0.9rem;
+    line-height: 1.9;
+    color: var(--ink-soft);
+  }
+
+  /* 資格 */
+  .cert-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .cert-item {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 2rem;
+    align-items: center;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .cert-item:last-child { border-bottom: none; }
+
+  .cert-num {
+    font-family: var(--serif-en);
+    font-style: italic;
+    color: var(--copper);
+    font-size: 1.1rem;
+  }
+
+  .cert-name {
+    font-family: var(--serif-jp);
+    font-weight: 500;
+    font-size: 1.1rem;
+  }
+
+  .cert-date {
+    font-family: var(--serif-en);
+    font-style: italic;
+    color: var(--ink-mute);
+    font-size: 0.9rem;
+  }
+
+  /* Contact */
+  .contact {
+    padding-top: 6rem;
+    padding-bottom: 8rem;
+    text-align: center;
+  }
+
+  .contact-title {
+    font-family: var(--serif-en);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(2.5rem, 5vw, 3.8rem);
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+  }
+
+  .contact-sub {
+    font-family: var(--serif-jp);
+    color: var(--ink-soft);
+    margin-bottom: 3rem;
+    letter-spacing: 0.05em;
+  }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .contact-link {
+    font-family: var(--serif-en);
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--ink);
+    text-decoration: none;
+    padding: 0.85rem 2rem;
+    border: 1px solid var(--ink);
+    transition: all 0.3s ease;
+    letter-spacing: 0.05em;
+  }
+
+  .contact-link:hover {
+    background: var(--ink);
+    color: var(--bg);
+  }
+
+  /* フッター */
+  footer {
+    position: relative;
+    z-index: 2;
+    padding: 2.5rem 3rem;
+    border-top: 1px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--serif-en);
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--ink-mute);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* スクロール時のフェードイン */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s ease, transform 1s ease;
+  }
+
+  .reveal.in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* レスポンシブ */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 5rem 1.5rem; }
+    .hero { padding-top: 8rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .hero-bottom { flex-direction: column; align-items: flex-start; gap: 2rem; }
+    .scroll-hint { writing-mode: horizontal-tb; }
+    .timeline { padding-left: 1.8rem; }
+    .timeline-item::before { left: -2.25rem; }
+    .cert-item { grid-template-columns: 1fr; gap: 0.3rem; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-mark">M.T.</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#activities">Activities</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<section class="hero" id="top">
+  <div class="hero-meta">Portfolio — 2026</div>
+  <h1 class="hero-name-en">Maki<br><em>Tamura</em></h1>
+  <div class="hero-name-jp">田 村　茉 希</div>
+  <p class="hero-tagline">
+    テクノロジーを単体の技術としてではなく、<br>
+    社会課題を解決する仕組みとして実装する——。<br>
+    人とロボットが共に働く未来の設計に関心を寄せています。
+  </p>
+  <div class="hero-bottom">
+    <div class="hero-loc">Keio University, SFC — Kanagawa, Japan</div>
+    <div class="scroll-hint">scroll ↓</div>
+  </div>
+</section>
+
+<!-- About -->
+<section id="about">
+  <div class="section-label">01 / About</div>
+  <h2 class="section-title">人と技術の<br>あいだを設計する</h2>
+  <div class="about-grid">
+    <div class="about-card">
+      <dl>
+        <dt>Name</dt><dd>田村 茉希 / Maki Tamura</dd>
+        <dt>University</dt><dd>慶應義塾大学</dd>
+        <dt>Faculty</dt><dd>総合政策学部 総合政策学科</dd>
+        <dt>Class of</dt><dd>2028</dd>
+        <dt>Location</dt><dd>神奈川県</dd>
+        <dt>Interest</dt><dd>サービスロボットの社会実装</dd>
+      </dl>
+    </div>
+    <div class="about-text">
+      <p>総合政策学部で、テクノロジーを単体の技術として捉えるのではなく、<strong>社会課題を解決するための仕組みとして実装すること</strong>を学んでいます。</p>
+      <p>特に関心があるのは、人手不足が深刻化する清掃・飲食・物流などの現場において、サービスロボットが単なる省人化ツールではなく、人の働き方や顧客体験を変える存在になるための導入設計です。</p>
+      <p>ロボットの性能だけでなく、現場でどう運用され、人とどう協働するか——その接続点をデザインすることに、研究と実践の両面から取り組んでいます。</p>
+    </div>
+  </div>
+</section>
+
+<!-- Education -->
+<section id="education">
+  <div class="section-label">02 / Education</div>
+  <h2 class="section-title">学び</h2>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-date">April 2024 — March 2028</div>
+      <h3 class="timeline-title">慶應義塾大学 総合政策学部 総合政策学科</h3>
+      <div class="timeline-sub">Keio University, Faculty of Policy Management</div>
+      <p class="timeline-desc">
+        テクノロジーを社会実装する視点から、サービスロボットの導入設計と人間中心設計を研究。
+        現場での運用、人との協働、顧客体験の変化を含めた、技術と社会の接続を考察しています。
+      </p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">March 2021</div>
+      <h3 class="timeline-title">卒業論文「近年の異常気象と地球環境の変化について」</h3>
+      <div class="timeline-sub">High school graduation thesis</div>
+      <p class="timeline-desc">
+        高校時代の卒業論文として、地球環境の変化と異常気象の関係性について調査・考察を行いました。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Experience -->
+<section id="experience">
+  <div class="section-label">03 / Experience</div>
+  <h2 class="section-title">実務経験</h2>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-date">April 2025 — Present</div>
+      <h3 class="timeline-title">ヒューマンアカデミー ジュニアロボット教室</h3>
+      <div class="timeline-sub">スクール講師</div>
+      <p class="timeline-desc">
+        主に小学生を対象にロボット制作の講師を担当。生徒がテキストを見ながらロボットを組み立て、動作を確認し、
+        うまく動かない場合には<strong style="border-bottom:1px solid var(--copper);padding-bottom:1px;color:var(--ink)">原因を一緒に考えながら改善できるようサポート</strong>することを心がけています。
+        子どもたちが「なぜ動かないのか」を自分の言葉で説明できるよう、問いかけ方を工夫しています。
+      </p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">May 2024 — March 2025</div>
+      <h3 class="timeline-title">株式会社すかいらーくホールディングス</h3>
+      <div class="timeline-sub">ホールスタッフ（ガスト）</div>
+      <p class="timeline-desc">
+        ファミリーレストラン「ガスト」でのアルバイト経験を通じて、ピークタイムには配膳・下膳・注文対応・会計などの業務が重なり、
+        従業員の負担が大きくなる現場の実情を体感しました。一方で、すべての業務を機械化すればよいわけではなく、
+        <strong style="border-bottom:1px solid var(--copper);padding-bottom:1px;color:var(--ink)">お客様への気配りや臨機応変な対応は、人だからこそ価値を発揮できる部分</strong>であると実感。
+        この現場経験が、サービスロボットの導入設計への関心の原点になっています。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Activities -->
+<section id="activities">
+  <div class="section-label">04 / Activities</div>
+  <h2 class="section-title">活動と歩み</h2>
+  <div class="activity-grid">
+    <div class="activity-card">
+      <span class="activity-num">i.</span>
+      <h3 class="activity-title">2025国際ロボット展（iREX 2025）参加</h3>
+      <div class="activity-date">December 2025 — Tokyo Big Sight</div>
+      <p class="activity-desc">
+        日本ロボット工業会主催・隔年開催の国際ロボット展に来場。
+        スマートコミュニティロボット、物流システム・ロボット、サービスロボットの最新事例を視察し、
+        産業現場での社会実装の現状と課題について理解を深めました。
+      </p>
+    </div>
+    <div class="activity-card">
+      <span class="activity-num">ii.</span>
+      <h3 class="activity-title">バドミントンサークル「Twinkles」</h3>
+      <div class="activity-date">April 2024 —</div>
+      <p class="activity-desc">
+        大学のバドミントンサークルに所属。継続的な活動を通じてチームワークと体力づくりに取り組んでいます。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Certifications -->
+<section id="certifications">
+  <div class="section-label">05 / Certifications</div>
+  <h2 class="section-title">資格</h2>
+  <div class="cert-list">
+    <div class="cert-item">
+      <span class="cert-num">i.</span>
+      <span class="cert-name">応用情報技術者試験 合格</span>
+      <span class="cert-date">December 2025</span>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section class="contact" id="contact">
+  <h2 class="contact-title">Get in touch.</h2>
+  <p class="contact-sub">お問い合わせ・ご連絡はこちらから</p>
+  <div class="contact-links">
+  　<a class="contact-link" href="mailto:maki.tamura.0626@gmail.com">Email</a>
+  　<a class="contact-link" href="https://www.wantedly.com/id/maki_tamura_r" target="_blank" rel="noopener">Wantedly</a>
+  </div>
+</section>
+
+<footer>
+  <div>© 2026 Maki Tamura. All rights reserved.</div>
+  <div>Designed with care.</div>
+</footer>
+
+<script>
+  // ナビゲーションの境界線
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 40) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  });
+
+  // スクロールでフェードイン
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('section:not(.hero) > *').forEach(el => {
+    el.classList.add('reveal');
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>
