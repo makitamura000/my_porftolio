@@ -37,7 +37,6 @@
     overflow-x: hidden;
   }
 
-  /* グレイン質感 */
   body::before {
     content: '';
     position: fixed;
@@ -49,7 +48,6 @@
     mix-blend-mode: multiply;
   }
 
-  /* ナビゲーション */
   nav {
     position: fixed;
     top: 0;
@@ -75,11 +73,7 @@
     letter-spacing: 0.02em;
   }
 
-  .nav-links {
-    display: flex;
-    gap: 2.5rem;
-    list-style: none;
-  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
 
   .nav-links a {
     font-family: var(--sans-jp);
@@ -106,7 +100,6 @@
   .nav-links a:hover { color: var(--ink); }
   .nav-links a:hover::after { width: 100%; }
 
-  /* セクション共通 */
   section {
     position: relative;
     z-index: 2;
@@ -146,11 +139,18 @@
   /* ヒーロー */
   .hero {
     min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    padding-top: 6rem;
+    padding-bottom: 4rem;
+  }
+
+  .hero-left {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-top: 6rem;
-    padding-bottom: 4rem;
   }
 
   .hero-meta {
@@ -166,7 +166,7 @@
   .hero-name-en {
     font-family: var(--serif-en);
     font-weight: 400;
-    font-size: clamp(3.5rem, 9vw, 7.5rem);
+    font-size: clamp(3.5rem, 8vw, 6.5rem);
     line-height: 1;
     letter-spacing: -0.01em;
     margin-bottom: 1rem;
@@ -191,7 +191,6 @@
   }
 
   .hero-tagline {
-    max-width: 620px;
     font-family: var(--serif-jp);
     font-size: 1.05rem;
     line-height: 2.1;
@@ -200,29 +199,55 @@
     animation: fadeUp 1s ease 0.8s forwards;
   }
 
-  .hero-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-top: 4rem;
-    opacity: 0;
-    animation: fadeUp 1s ease 1s forwards;
-  }
-
   .hero-loc {
     font-family: var(--serif-en);
     font-style: italic;
     color: var(--ink-mute);
     font-size: 0.95rem;
+    margin-top: 3rem;
+    opacity: 0;
+    animation: fadeUp 1s ease 1s forwards;
   }
 
-  .scroll-hint {
+  .hero-right {
+    position: relative;
+    opacity: 0;
+    animation: fadeUp 1.2s ease 0.6s forwards;
+  }
+
+  .hero-image-wrap {
+    position: relative;
+    aspect-ratio: 4/5;
+    overflow: hidden;
+    background: var(--bg-soft);
+  }
+
+  .hero-image-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.9) contrast(1.02);
+    transition: transform 0.8s ease;
+  }
+
+  .hero-image-wrap:hover img { transform: scale(1.03); }
+
+  .hero-image-frame {
+    position: absolute;
+    inset: -12px;
+    border: 1px solid var(--copper);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .hero-image-caption {
     font-family: var(--serif-en);
     font-style: italic;
-    font-size: 0.85rem;
     color: var(--ink-mute);
-    writing-mode: vertical-rl;
-    letter-spacing: 0.1em;
+    font-size: 0.85rem;
+    margin-top: 1.5rem;
+    text-align: right;
+    letter-spacing: 0.05em;
   }
 
   @keyframes fadeUp {
@@ -258,10 +283,7 @@
     letter-spacing: 0.05em;
   }
 
-  .about-card dd {
-    color: var(--ink);
-    font-family: var(--sans-jp);
-  }
+  .about-card dd { color: var(--ink); font-family: var(--sans-jp); }
 
   .about-text p {
     margin-bottom: 1.4rem;
@@ -290,11 +312,7 @@
     margin-left: 0.5rem;
   }
 
-  .timeline-item {
-    position: relative;
-    margin-bottom: 3.5rem;
-  }
-
+  .timeline-item { position: relative; margin-bottom: 3.5rem; }
   .timeline-item:last-child { margin-bottom: 0; }
 
   .timeline-item::before {
@@ -341,6 +359,69 @@
     max-width: 680px;
   }
 
+  /* SFC博覧会 ピックアップ */
+  .feature-block {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3.5rem;
+    align-items: center;
+  }
+
+  .feature-image {
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    background: var(--bg-soft);
+    position: relative;
+  }
+
+  .feature-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+
+  .feature-image:hover img { transform: scale(1.04); }
+
+  .feature-content .feature-date {
+    font-family: var(--serif-en);
+    font-style: italic;
+    color: var(--copper);
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .feature-content h3 {
+    font-family: var(--serif-jp);
+    font-weight: 500;
+    font-size: 1.4rem;
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+  }
+
+  .feature-content .feature-sub {
+    font-family: var(--sans-jp);
+    color: var(--ink-mute);
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.03em;
+  }
+
+  .feature-content p {
+    font-size: 0.95rem;
+    line-height: 2;
+    color: var(--ink-soft);
+    margin-bottom: 1rem;
+  }
+
+  .feature-content strong {
+    color: var(--ink);
+    font-weight: 500;
+    border-bottom: 1px solid var(--copper);
+    padding-bottom: 1px;
+  }
+
   /* アクティビティ・グリッド */
   .activity-grid {
     display: grid;
@@ -385,18 +466,10 @@
     margin-bottom: 1rem;
   }
 
-  .activity-desc {
-    font-size: 0.9rem;
-    line-height: 1.9;
-    color: var(--ink-soft);
-  }
+  .activity-desc { font-size: 0.9rem; line-height: 1.9; color: var(--ink-soft); }
 
   /* 資格 */
-  .cert-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
+  .cert-list { display: flex; flex-direction: column; gap: 1.5rem; }
 
   .cert-item {
     display: grid;
@@ -416,11 +489,7 @@
     font-size: 1.1rem;
   }
 
-  .cert-name {
-    font-family: var(--serif-jp);
-    font-weight: 500;
-    font-size: 1.1rem;
-  }
+  .cert-name { font-family: var(--serif-jp); font-weight: 500; font-size: 1.1rem; }
 
   .cert-date {
     font-family: var(--serif-en);
@@ -430,11 +499,7 @@
   }
 
   /* Contact */
-  .contact {
-    padding-top: 6rem;
-    padding-bottom: 8rem;
-    text-align: center;
-  }
+  .contact { padding-top: 6rem; padding-bottom: 8rem; text-align: center; }
 
   .contact-title {
     font-family: var(--serif-en);
@@ -471,12 +536,8 @@
     letter-spacing: 0.05em;
   }
 
-  .contact-link:hover {
-    background: var(--ink);
-    color: var(--bg);
-  }
+  .contact-link:hover { background: var(--ink); color: var(--bg); }
 
-  /* フッター */
   footer {
     position: relative;
     z-index: 2;
@@ -492,27 +553,26 @@
     margin: 0 auto;
   }
 
-  /* スクロール時のフェードイン */
   .reveal {
     opacity: 0;
     transform: translateY(30px);
     transition: opacity 1s ease, transform 1s ease;
   }
 
-  .reveal.in {
-    opacity: 1;
-    transform: translateY(0);
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; gap: 3rem; }
+    .hero-right { max-width: 400px; }
+    .feature-block { grid-template-columns: 1fr; gap: 2rem; }
   }
 
-  /* レスポンシブ */
   @media (max-width: 768px) {
     nav { padding: 1rem 1.5rem; }
     .nav-links { display: none; }
     section { padding: 5rem 1.5rem; }
     .hero { padding-top: 8rem; }
     .about-grid { grid-template-columns: 1fr; gap: 2rem; }
-    .hero-bottom { flex-direction: column; align-items: flex-start; gap: 2rem; }
-    .scroll-hint { writing-mode: horizontal-tb; }
     .timeline { padding-left: 1.8rem; }
     .timeline-item::before { left: -2.25rem; }
     .cert-item { grid-template-columns: 1fr; gap: 0.3rem; }
@@ -535,17 +595,23 @@
 
 <!-- Hero -->
 <section class="hero" id="top">
-  <div class="hero-meta">Portfolio — 2026</div>
-  <h1 class="hero-name-en">Maki<br><em>Tamura</em></h1>
-  <div class="hero-name-jp">田 村　茉 希</div>
-  <p class="hero-tagline">
-    テクノロジーを単体の技術としてではなく、<br>
-    社会課題を解決する仕組みとして実装する——。<br>
-    人とロボットが共に働く未来の設計に関心を寄せています。
-  </p>
-  <div class="hero-bottom">
+  <div class="hero-left">
+    <div class="hero-meta">Portfolio — 2026</div>
+    <h1 class="hero-name-en">Maki<br><em>Tamura</em></h1>
+    <div class="hero-name-jp">田 村　茉 希</div>
+    <p class="hero-tagline">
+      テクノロジーを単体の技術としてではなく、<br>
+      社会課題を解決する仕組みとして実装する——。<br>
+      人とロボットが共に働く未来の設計に関心を寄せています。
+    </p>
     <div class="hero-loc">Keio University, SFC — Kanagawa, Japan</div>
-    <div class="scroll-hint">scroll ↓</div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-image-wrap">
+      <div class="hero-image-frame"></div>
+      <img src="mali_me.png" alt="田村 茉希">
+    </div>
+    <div class="hero-image-caption">— Maki Tamura</div>
   </div>
 </section>
 
@@ -630,6 +696,33 @@
 <section id="activities">
   <div class="section-label">04 / Activities</div>
   <h2 class="section-title">活動と歩み</h2>
+
+  <!-- SFC博覧会フィーチャー -->
+  <div class="feature-block">
+    <div class="feature-image">
+      <img src="sfc_robots_hakuran.png" alt="SFC万学博覧会2025 ロボット×ヒト">
+    </div>
+    <div class="feature-content">
+      <div class="feature-date">November 2025</div>
+      <h3>SFC万学博覧会2025 学生スタッフ</h3>
+      <div class="feature-sub">特別企画「ロボット×ヒト：SFCでの身体と知能の理解が未来のロボットを育てる」</div>
+      <p>
+        <strong>「現場に定着するロボット導入の仕組みをつくる」</strong>という目標に向け、
+        SFC万学博覧会2025の学生スタッフとして、イベントの企画段階から携わりました。
+      </p>
+      <p>
+        特に力を入れたのは、特別企画「ロボット×ヒト」の「共発達型」ロボット実現の議論を来場者に分かりやすく伝えるための資料制作です。
+        専門用語をかみ砕くために、登壇者とも議論を重ね、伝え方を練り上げました。
+        結果、当日は多くの来場者から質問をいただき、アンケートで「非常に分かりやすかった」との評価をいただきました。
+      </p>
+      <p>
+        また、企画準備の過程で、ロボットの「繊細な操縦」を可能にする技術の実際のデータに触れ、
+        これらから得られる「自然なデータ」こそが現場の業務フローや従業員の動きのデータと組み合わさった時に
+        初めて価値を発揮すると確信しました。
+      </p>
+    </div>
+  </div>
+
   <div class="activity-grid">
     <div class="activity-card">
       <span class="activity-num">i.</span>
@@ -670,8 +763,8 @@
   <h2 class="contact-title">Get in touch.</h2>
   <p class="contact-sub">お問い合わせ・ご連絡はこちらから</p>
   <div class="contact-links">
-  　<a class="contact-link" href="mailto:maki.tamura.0626@gmail.com">Email</a>
-  　<a class="contact-link" href="https://www.wantedly.com/id/maki_tamura_r" target="_blank" rel="noopener">Wantedly</a>
+    <a class="contact-link" href="mailto:xxx@gmail.com">Email</a>
+    <a class="contact-link" href="https://www.wantedly.com/id/maki_tamura_r" target="_blank" rel="noopener">Wantedly</a>
   </div>
 </section>
 
@@ -681,19 +774,15 @@
 </footer>
 
 <script>
-  // ナビゲーションの境界線
   const nav = document.getElementById('nav');
   window.addEventListener('scroll', () => {
     if (window.scrollY > 40) nav.classList.add('scrolled');
     else nav.classList.remove('scrolled');
   });
 
-  // スクロールでフェードイン
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('in');
-      }
+      if (e.isIntersecting) e.target.classList.add('in');
     });
   }, { threshold: 0.1 });
 
